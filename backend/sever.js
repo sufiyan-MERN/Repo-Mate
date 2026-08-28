@@ -3,10 +3,12 @@ import indexRepo from "./lib/indexRepo.js";
 const app= express()
 app.use(express.json())
 
-app.post("/add-repo",(req,res)=>{
-    const {githubURl,githubToken}=req.body
+app.post("/add-repo", async(req,res)=>{
+    const {githubURL,githubToken}=req.body
 
-    indexRepo(githubURl,githubToken)
+    console.log("githubURl",githubURL);
+
+    await indexRepo(githubURL,githubToken)
     res.json({
         msg:"repo indexes successfully"
     })

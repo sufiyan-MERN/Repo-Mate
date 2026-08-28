@@ -1,6 +1,8 @@
 import { GithubRepoLoader } from "@langchain/community/document_loaders/web/github";
 import dotenv from "dotenv"
 
+dotenv.config()
+
 export default async function loadGithubRepo(githubURL) {
   const loader = new GithubRepoLoader(githubURL, {
     recursive: true,
@@ -18,6 +20,7 @@ export default async function loadGithubRepo(githubURL) {
 
   const docArray = await loader.load();
   return docArray;
+  // console.log(docArray);
 }
 
 // loadGithubRepo("https://github.com/ZayeemMohd/taskflowAI");

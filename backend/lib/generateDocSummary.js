@@ -27,4 +27,15 @@ ${code}
     
     console.log("summary generated for",doc.metadata.source);
     return response.text
+    // console.log("summary of the document",response.text);
 }
+
+// generateDocSummary({
+//     pageContent: '# test-1\ncreating repo just for testing purposes\n',
+//     metadata: {
+//       source: 'README.md',
+//       repository: 'https://github.com/ZayeemMohd/taskflowAI',
+//       branch: 'main'
+//     },
+//     id: undefined
+//   })
