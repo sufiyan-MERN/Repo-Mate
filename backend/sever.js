@@ -1,5 +1,6 @@
 import express from "express";
 import indexRepo from "./lib/indexRepo.js";
+import askQuestion from "./lib/askQuestion.js";
 const app= express()
 app.use(express.json())
 
@@ -14,11 +15,14 @@ app.post("/add-repo", async(req,res)=>{
     })
 })
 
-app.post("/ask-question",(req,res)=>{
+app.post("/ask-question", async (req,res)=>{
     const {userQuery}=req.body
 
+    const {AI_summary} = await askQuestion(userQuery)
+
     res.json({
-        msg:"query asnwer generated successfully"
+        msg:"query asnwer generated successfully",
+        AI_summary
     })
 })
 
