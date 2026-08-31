@@ -1,23 +1,24 @@
 import { GoogleGenAI } from "@google/genai";
 import queryCodebase from "./queryCodebase.js";
-import dotenv from "dotenv"
+import dotenv from "dotenv";
 
-dotenv.config()
+dotenv.config();
 
 const ai = new GoogleGenAI({
-    apiKey: process.env.GEMENI_API_KET_ASK_QUESTION
-
-})
+  apiKey: process.env.GEMENI_API_KET_ASK_QUESTION,
+});
 
 export default async function askQuestion(userQuery) {
-    const relaventFiles = await queryCodebase(userQuery)
+  const relaventFiles = await queryCodebase(userQuery);
 
-    let context= ""
-    relaventFiles.forEach((fileObj,index) => {
-        context = context + ` file ${index+1} \n ${fileObj.fileName} \n , summary of the file: ${fileObj.fileSummary} \n ,code content ${fileObj.sourceCode} `
-    });
+  let context = "";
+  relaventFiles.forEach((fileObj, index) => {
+    context =
+      context +
+      ` file ${index + 1} \n ${fileObj.fileName} \n , summary of the file: ${fileObj.fileSummary} \n ,code content ${fileObj.sourceCode} `;
+  });
 
-    const systemPrompt= [
+  const systemPrompt = [
     `You are a ai code assistant who answers questions about the codebase. Your target audience is a technical intern who is looking to understand the codebase. 
     AI assistant is a brand new, powerful, human-like artificial intelligence.
     The traits of AI include expert knowledge, helpfulness, cleverness, and articulateness.
@@ -40,10 +41,12 @@ export default async function askQuestion(userQuery) {
             `,
   ];
 
-    const response = await ai.models.generateContent({
-        model: "gemini-3.6-flash",
-        contents: systemPrompt
-    })
-     return {AI_summary: response.text}
-    
+  const response = await ai.models.generateContent({
+    model: "gemini-3.6-flash",
+    contents: systemPrompt,
+  });
+  return { AI_summary: response.text, relaventFiles };
+  // console.log("relavent files",relaventFiles);
 }
+
+// askQuestion("readme related file")
