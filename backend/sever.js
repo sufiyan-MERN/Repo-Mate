@@ -1,8 +1,11 @@
 import express from "express";
 import indexRepo from "./lib/indexRepo.js";
 import askQuestion from "./lib/askQuestion.js";
+import cors from "cors"
+
 const app = express();
 app.use(express.json());
+app.use(cors())
 
 app.post("/add-repo", async (req, res) => {
   const { githubURL, githubToken } = req.body;
