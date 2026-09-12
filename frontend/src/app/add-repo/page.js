@@ -29,6 +29,8 @@ export default function AddRepo() {
         throw new Error(data?.msg || "Failed to add repository");
       }
 
+ 
+
       setMessage(data.msg || "Repository indexed successfully.");
       setGithubURL("");
       setGithubToken("");
@@ -119,7 +121,7 @@ export default function AddRepo() {
             <p className="status-message">{message}</p>
             <div className="button-row compact-row">
               <Link href="/add-repo/ask-question" className="primary-btn">
-                Ask Question
+                 {loading ? " Ask Question ": " Try again "}
               </Link>
             </div>
           </div>
